@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * Theater class represents one auditorium of that movie theater.
- * Contains multiple seats in rows.
+ * It holds a list of Seat objects and has methods to set up,
+ * reserve, and cancel them.
  */
 public class Theater {
     // A list to hold all the Seat objects.
@@ -58,6 +59,31 @@ public class Theater {
         // If we finish the loop without returning, seat wasn't found
         return false;
     }
+
+    /**
+     * Attempts to cancel a seat reservation in the given row with the given seat number.
+     * @param row The row of the seat (e.g., "A").
+     * @param seatNumber The specific seat number in that row (e.g., 1).
+     * @return true if the seat was found and successfully canceled, false otherwise.
+     */
+    public boolean cancelSeat(String row, int seatNumber) {
+        for (Seat seat : seats) {
+            // Check if we've found the matching seat
+            if (seat.getRow().equalsIgnoreCase(row) && seat.getSeatNumber() == seatNumber) {
+                // Only cancel if the seat is currently reserved
+                if (seat.isReserved()) {
+                    seat.cancel();
+                    return true;
+                } else {
+                    // If it's not reserved, we can't "cancel" it
+                    return false;
+                }
+            }
+        }
+        // If we never found the seat, return false
+        return false;
+    }
+
 
     /**
      * Getter method that allows external code to see the list of seats.
