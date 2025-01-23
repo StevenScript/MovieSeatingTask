@@ -84,6 +84,27 @@ public class Theater {
         return false;
     }
 
+    /**
+     * Returns a string that visually represents the seating layout.
+     * Seats marked [X] are reserved, seats marked [ ] are available.
+     */
+    public String getSeatingChart() {
+        StringBuilder sb = new StringBuilder();
+        for (Seat seat : seats) {
+            sb.append(seat.getRow())
+                    .append(seat.getSeatNumber())
+                    .append(seat.isReserved() ? "[X]" : "[ ]")
+                    .append(" ");
+
+            // If seatNum is 5, that means it's the last seat in the row:
+            // we move to a new line.
+            if (seat.getSeatNumber() == 5) {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
 
     /**
      * Getter method that allows external code to see the list of seats.
